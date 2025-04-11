@@ -10,7 +10,8 @@ let DefaultIcon = L.icon({
     iconUrl: icon,
     shadowUrl: iconShadow,
     iconSize: [25,41],
-    iconAnchor: [12,41]
+    iconAnchor: [12,41],
+    popupAnchor: [0, -41],
 });
 
 L.Marker.prototype.options.icon = DefaultIcon;
@@ -28,7 +29,7 @@ const SimpleMap = () => {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           <Marker position={position}>
-          <Popup offset={[0, -30]}>
+          <Popup>
             A pretty CSS3 popup. <br /> Easily customizable.
             </Popup>
 
