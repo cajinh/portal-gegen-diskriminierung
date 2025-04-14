@@ -2,7 +2,7 @@ import { Grid, ThemeProvider } from '@mui/material';
 import React from 'react';
 import theme from '../theme';
 
-function Footer() {
+function Header() {
   return (
     <ThemeProvider theme={theme}>
     <Grid sx={{
@@ -10,11 +10,11 @@ function Footer() {
           color: 'primary.main',
         }}>
         <Grid item xs={12} style={{ textAlign: 'center' }}>
-            <p>&copy; {new Date().getFullYear()} Mein Projekt. Alle Rechte vorbehalten.</p>
+            <p> Header </p>
         </Grid>
     </Grid>
     </ThemeProvider>
   );
 }
 
-export default Footer;
+export default Header;
