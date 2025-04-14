@@ -26,7 +26,7 @@ const SimpleMap = () => {
       center={[latitude, longitude]}
       zoom={13}
       ref={mapRef}
-      style={{ height: '100vh', width: '100vw' }}
+      style={{ height: '90vh', width: '100vw' }}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

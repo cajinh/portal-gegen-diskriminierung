@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import SimpleMap from './SimpleMap';
+import HomePage from './pages/HomePage';
 
 function App() {
   const [message, setMessage] = useState('');
@@ -11,11 +11,7 @@ function App() {
 
   return (
     <div>
-      <h1>My Leaflet.js and React Map</h1>
-      <div className="App">
-        <h1>{message}</h1>
-      </div>
-      <SimpleMap />
+      <HomePage />
     </div>
   );
 }

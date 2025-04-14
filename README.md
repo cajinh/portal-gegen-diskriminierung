@@ -3,7 +3,7 @@
 ## Backend
 
 To start the backend:
-./mvnw quarkus:dev
+./gradlew quarkusDev
 
 
 ## Frontend
