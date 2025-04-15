@@ -9,17 +9,18 @@ function Footer() {
         sx={{
           backgroundColor: 'primary.main',
           height: '100%',
+          justifyContent: 'center',
+          display: 'flex',
+          alignItems: 'center',
         }}
       >
-        <Grid item xs={12} style={{ textAlign: 'center', margin: 0 }}>
-          <Button
-            variant="contained"
-            color="primary.main"
-            sx={{ height: 10, margin: 1 }}
-          >
-            Button 1
-          </Button>
-        </Grid>
+        <Button
+          variant="text"
+          color="primary.main"
+          sx={{ height: 15, margin: 1, padding: 0, color: 'white' }}
+        >
+          Impressum
+        </Button>
       </Grid>
     </ThemeProvider>
   );

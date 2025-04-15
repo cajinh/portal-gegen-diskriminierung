@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import HomePage from './pages/HomePage';
+import Impressum from './pages/Impressum';
+import HilfeBeiVorfall from './pages/HilfeBeiVorfall';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Layout from './pages/Layout';
 
 function App() {
   //const [message, setMessage] = useState('');
@@ -10,9 +13,12 @@ function App() {
   //}, []);
 
   return (
-    <div>
-      <HomePage />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Layout />} />
+        <Route path="/impressum" element={<Impressum />} />
+      </Routes>
+    </Router>
   );
 }
 export default App;

@@ -1,9 +1,9 @@
-import SimpleMap from '../SimpleMap';
+import SimpleMap from '../components/SimpleMap';
 import Footer from '../components/Footer';
 import { Grid, Box } from '@mui/material';
 import Header from '../components/Header';
 
-function HomePage() {
+function Impressum() {
   return (
     <Grid container direction="column" sx={{ height: '100vh' }}>
       {/* Header */}
@@ -25,4 +25,4 @@ function HomePage() {
     </Grid>
   );
 }
-export default HomePage;
+export default Impressum;
