@@ -4,11 +4,10 @@ import { Grid, Box } from '@mui/material';
 import Header from '../components/Header';
 
 function HomePage() {
-
   return (
     <Grid container direction="column" sx={{ height: '100vh' }}>
       {/* Header */}
-      <Grid>
+      <Grid sx={{ height: '8vh' }}>
         <Header />
       </Grid>
 
@@ -20,7 +19,7 @@ function HomePage() {
       </Grid>
 
       {/* Footer */}
-      <Grid>
+      <Grid sx={{ height: '5vh' }}>
         <Footer />
       </Grid>
     </Grid>
