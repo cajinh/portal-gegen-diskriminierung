@@ -10,28 +10,30 @@ import {
 } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import icon from 'leaflet/dist/images/marker-icon.png';
-import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+
 
 // Marker-Icon setzen
 let DefaultIcon = L.icon({
-  iconUrl: icon,
-  shadowUrl: iconShadow,
+  iconUrl:
+    'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+  shadowUrl:
+    'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
   iconSize: [25, 41],
   iconAnchor: [12, 41],
-  popupAnchor: [0, -41],
+  popupAnchor: [0, -34],
+  shadowSize: [41, 41],
 });
 
 L.Marker.prototype.options.icon = DefaultIcon;
 
-// Komponente zum Einfärben des Außenbereichs
+// Einfärben des Außenbereichs
 function OuterMask({ geoJsonData }) {
   const [outerPolygon, setOuterPolygon] = useState(null);
 
   useEffect(() => {
     if (!geoJsonData) return;
 
-    const feature = geoJsonData.features[0]; // Nur erstes Feature
+    const feature = geoJsonData.features[0];
     const coords = feature.geometry.coordinates;
 
     const invertCoords = (ring) => ring.map(([lng, lat]) => [lat, lng]);
@@ -94,7 +96,7 @@ function FitBounds({ geoJsonData }) {
   return <GeoJSON data={geoJsonData} style={geoJsonStyle} />;
 }
 
-function SimpleMap() {
+function Map() {
   const [geoJsonData, setGeoJsonData] = useState(null);
 
   useEffect(() => {
@@ -126,4 +128,4 @@ function SimpleMap() {
   );
 }
 
-export default SimpleMap;
+export default Map;

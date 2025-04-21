@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Impressum from './pages/Impressum';
-import HilfeBeiVorfall from './pages/HilfeBeiVorfall';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './pages/Layout';
 

@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import { Grid } from '@mui/material';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import SimpleMap from '../components/SimpleMap';
+import Impressum from './Impressum';
+import SimpleMap from '../components/Map';
 import HilfeBeiVorfall from './HilfeBeiVorfall';
+import InfoSnackbar from '../components/InfoSnackbar';
+
 
 const Layout = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -16,6 +19,8 @@ const Layout = () => {
         return <SimpleMap />;
       case 2:
         return <HilfeBeiVorfall />;
+      case 3:
+        return <Impressum />;
       default:
         return <SimpleMap />;
     }
@@ -28,9 +33,10 @@ const Layout = () => {
       </Grid>
 
       <Grid sx={{ flex: 1 }}>{renderContent()}</Grid>
+      <InfoSnackbar />
 
       <Grid sx={{ height: '5vh' }}>
-        <Footer />
+        <Footer onTabChange={setActiveTab} />
       </Grid>
     </Grid>
   );

@@ -1,7 +1,9 @@
 import { Tab, Tabs, ThemeProvider } from '@mui/material';
 import React from 'react';
 import theme from '../theme';
-import { href } from 'react-router-dom';
+import HomeIcon from '@mui/icons-material/Home';
+import InfoIcon from '@mui/icons-material/Info';
+import HelpIcon from '@mui/icons-material/Help';
 
 function Header({ activeTab, onTabChange }) {
   const handleChange = (event, newValue) => {
@@ -31,9 +33,24 @@ function Header({ activeTab, onTabChange }) {
           display: 'flex',
         }}
       >
-        <Tab label="Home" sx={getTabStyle(activeTab === 0)} />
-        <Tab label="Über Diskriminierung" sx={getTabStyle(activeTab === 1)} />
-        <Tab label="Hilfe bei Vorfällen" sx={getTabStyle(activeTab === 2)} />
+        <Tab
+          icon={<HomeIcon />}
+          iconPosition="start"
+          label="Home"
+          sx={getTabStyle(activeTab === 0)}
+        />
+        <Tab
+          icon={<InfoIcon />}
+          iconPosition="start"
+          label="Über Diskriminierung"
+          sx={getTabStyle(activeTab === 1)}
+        />
+        <Tab
+          icon={<HelpIcon />}
+          iconPosition="start"
+          label="Hilfe bei Vorfällen"
+          sx={getTabStyle(activeTab === 2)}
+        />
       </Tabs>
     </ThemeProvider>
   );

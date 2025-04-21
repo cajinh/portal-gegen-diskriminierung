@@ -2,7 +2,7 @@ import { Button, Grid, ThemeProvider } from '@mui/material';
 import React from 'react';
 import theme from '../theme';
 
-function Footer() {
+function Footer({ onTabChange }) {
   return (
     <ThemeProvider theme={theme}>
       <Grid
@@ -17,6 +17,7 @@ function Footer() {
         <Button
           variant="text"
           color="primary.main"
+          onClick={() => onTabChange(3)}
           sx={{ height: 15, margin: 1, padding: 0, color: 'white' }}
         >
           Impressum
