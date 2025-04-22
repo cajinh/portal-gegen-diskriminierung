@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Snackbar, Alert, ThemeProvider } from '@mui/material';
 import theme from '../theme';
 
-const InfoSnackbar = () => {
+function InfoSnackbar() {
   const [open, setOpen] = useState(true);
 
   const handleClose = (event, reason) => {
@@ -12,28 +12,28 @@ const InfoSnackbar = () => {
 
   return (
     <ThemeProvider theme={theme}>
-    <Snackbar
-      open={open}
-      onClose={handleClose}
-      anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-      sx={{ mb: '4vh' }} 
-    >
-      <Alert
+      <Snackbar
+        open={open}
         onClose={handleClose}
-        severity="info"
-        icon={false}
-        sx={{
-          width: '100%',
-          bgcolor: 'primary.main',
-          color: 'white',
-          fontSize: '0.9rem',
-        }}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        sx={{ mb: '4vh' }}
       >
-        Klicke auf die Karte um einen neuen Vorfall zu melden.
-      </Alert>
-    </Snackbar>
+        <Alert
+          onClose={handleClose}
+          severity="info"
+          icon={false}
+          sx={{
+            width: '100%',
+            bgcolor: 'primary.main',
+            color: 'white',
+            fontSize: '0.9rem',
+          }}
+        >
+          Klicke auf die Karte um einen neuen Vorfall zu melden.
+        </Alert>
+      </Snackbar>
     </ThemeProvider>
   );
-};
+}
 
 export default InfoSnackbar;

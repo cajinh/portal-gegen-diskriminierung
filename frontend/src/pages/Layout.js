@@ -7,7 +7,6 @@ import SimpleMap from '../components/Map';
 import HilfeBeiVorfall from './HilfeBeiVorfall';
 import InfoSnackbar from '../components/InfoSnackbar';
 
-
 const Layout = () => {
   const [activeTab, setActiveTab] = useState(0);
 

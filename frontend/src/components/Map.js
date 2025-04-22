@@ -5,14 +5,15 @@ import {
   Marker,
   Popup,
   useMap,
+  useMapEvents,
   GeoJSON,
   Polygon,
 } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+import MeldeFormular from './MeldeFormular';
 
-
-// Marker-Icon setzen
+// Marker-Icon
 let DefaultIcon = L.icon({
   iconUrl:
     'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
@@ -23,10 +24,9 @@ let DefaultIcon = L.icon({
   popupAnchor: [0, -34],
   shadowSize: [41, 41],
 });
-
 L.Marker.prototype.options.icon = DefaultIcon;
 
-// Einfärben des Außenbereichs
+// Komponente zum Einfärben des Außenbereichs
 function OuterMask({ geoJsonData }) {
   const [outerPolygon, setOuterPolygon] = useState(null);
 
@@ -35,11 +35,8 @@ function OuterMask({ geoJsonData }) {
 
     const feature = geoJsonData.features[0];
     const coords = feature.geometry.coordinates;
-
     const invertCoords = (ring) => ring.map(([lng, lat]) => [lat, lng]);
-
     const hole = invertCoords(coords[0]);
-
     const world = [
       [-90, -360],
       [-90, 360],
@@ -64,6 +61,7 @@ function OuterMask({ geoJsonData }) {
   );
 }
 
+// Map-Ausschnitt automatisch setzen
 function FitBounds({ geoJsonData }) {
   const map = useMap();
 
@@ -96,8 +94,20 @@ function FitBounds({ geoJsonData }) {
   return <GeoJSON data={geoJsonData} style={geoJsonStyle} />;
 }
 
+// Kartenklicks
+function MapClickHandler({ onMapClick }) {
+  useMapEvents({
+    click(e) {
+      onMapClick(e.latlng);
+    },
+  });
+  return null;
+}
+
 function Map() {
   const [geoJsonData, setGeoJsonData] = useState(null);
+  const [selectedPosition, setSelectedPosition] = useState(null);
+  const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
     fetch('/Vechta.geojson')
@@ -105,26 +115,51 @@ function Map() {
       .then((data) => setGeoJsonData(data));
   }, []);
 
+  const handleMapClick = (latlng) => {
+    setSelectedPosition([latlng.lat, latlng.lng]);
+    setShowForm(true);
+  };
+
   return (
-    <MapContainer
-      center={[52.7269, 8.2857]}
-      zoom={13}
-      style={{ height: '87vh', width: '100vw' }}
-    >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      {geoJsonData && (
-        <>
-          <OuterMask geoJsonData={geoJsonData} />
-          <FitBounds geoJsonData={geoJsonData} />
-        </>
+    <>
+      <MapContainer
+        center={[52.7269, 8.2857]}
+        zoom={13}
+        style={{ height: '87vh', width: '100vw' }}
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        {geoJsonData && (
+          <>
+            <OuterMask geoJsonData={geoJsonData} />
+            <FitBounds geoJsonData={geoJsonData} />
+          </>
+        )}
+
+        <Marker position={[52.7269, 8.2857]}>
+          <Popup>Vechta Zentrum</Popup>
+        </Marker>
+
+        {/* Marker für neue Meldung */}
+        {selectedPosition && (
+          <Marker position={selectedPosition}>
+            <Popup>Neue Meldung</Popup>
+          </Marker>
+        )}
+
+        <MapClickHandler onMapClick={handleMapClick} />
+      </MapContainer>
+
+      {/* Meldeformular anzeigen */}
+      {showForm && (
+        <MeldeFormular
+          position={selectedPosition}
+          onClose={() => setShowForm(false)}
+        />
       )}
-      <Marker position={[52.7269, 8.2857]}>
-        <Popup>Vechta Zentrum</Popup>
-      </Marker>
-    </MapContainer>
+    </>
   );
 }
 
