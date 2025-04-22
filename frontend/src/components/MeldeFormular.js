@@ -19,6 +19,9 @@ function Meldeformular({ position, onClose }) {
   return (
     <ThemeProvider theme={theme}>
       <Paper
+        role="dialog"
+        aria-labelledby="meldeformular-title"
+        aria-describedby="meldeformular-description"
         elevation={4}
         sx={{
           position: 'fixed',
@@ -41,11 +44,14 @@ function Meldeformular({ position, onClose }) {
               padding: 2,
             }}
           >
-            <Typography variant="h6" color="white">
-              {' '}
+            <Typography id="meldeformular-title" variant="h6" color="white">
               Neue Meldung erstellen
             </Typography>
-            <IconButton onClick={onClose} size="small">
+            <IconButton
+              onClick={onClose}
+              size="small"
+              aria-label="Formular schließen"
+            >
               <CloseIcon sx={{ color: 'white' }} />
             </IconButton>
           </Grid>
@@ -56,7 +62,11 @@ function Meldeformular({ position, onClose }) {
             sx={{ padding: 2, justifyContent: 'center' }}
           >
             <Grid sx={{ width: '100%' }}>
-              <Typography variant="body2" color="black">
+              <Typography
+                variant="body2"
+                color="black"
+                id="meldeformular-description"
+              >
                 Position: {position[0].toFixed(5)}, {position[1].toFixed(5)}
               </Typography>
             </Grid>
@@ -65,20 +75,24 @@ function Meldeformular({ position, onClose }) {
               <Typography variant="h6" color="black">
                 Welche Art von Diskriminierung hast du erlebt?
               </Typography>
+              <Typography variant="body" color="black">
+                Diskriminierung aufgrund...
+              </Typography>
             </Grid>
 
             <Grid sx={{ width: '100%' }}>
               <DropdownSelect
                 label="Kategorie wählen"
+                aria-label="Diskriminierungs-Kategorie wählen"
                 value={selectedOption}
                 onChange={setSelectedOption}
                 options={[
-                  'ethnischen Herkunft',
-                  'des Geschlechts',
-                  'der Religion oder der Weltanschauung',
-                  'einer Behinderung',
-                  'des Alters',
-                  'sexuellen Identität',
+                  '...der ethnischen Herkunft',
+                  '...des Geschlechts',
+                  '...der Religion oder der Weltanschauung',
+                  '...einer Behinderung',
+                  '...des Alters',
+                  '...der sexuellen Identität',
                 ]}
               />
             </Grid>
@@ -91,11 +105,16 @@ function Meldeformular({ position, onClose }) {
                 rows={4}
                 fullWidth
                 size="small"
+                aria-label="Beschreibung der Erfahrung"
               />
             </Grid>
 
             <Grid container justifyContent="flex-end">
-              <Button variant="contained" color="primary">
+              <Button
+                variant="contained"
+                color="primary"
+                aria-label="Meldung absenden"
+              >
                 Absenden
               </Button>
             </Grid>

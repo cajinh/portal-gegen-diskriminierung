@@ -1,21 +1,18 @@
 import React from 'react';
 import Impressum from './pages/Impressum';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Layout from './pages/Layout';
+import HilfeBeiVorfall from './pages/HilfeBeiVorfall';
+import Home from './pages/Home';
+import AboutDiscrimination from './pages/AboutDiscrimination';
 
 function App() {
-  //const [message, setMessage] = useState('');
-  //useEffect(() => {
-  //fetch('http://localhost:8080/hello')
-  //.then((response) => response.text())
-  //.then((data) => setMessage(data));
-  //}, []);
-
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Layout />} />
-        <Route path="/impressum" element={<Impressum />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/aboutdiscrimination" element={<AboutDiscrimination />} />
+        <Route path="hilfe" element={<HilfeBeiVorfall />} />
+        <Route path="impressum" element={<Impressum />} />
       </Routes>
     </Router>
   );

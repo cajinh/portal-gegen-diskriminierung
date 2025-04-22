@@ -3,7 +3,7 @@ import { Grid, Typography } from '@mui/material';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
-function HilfeBeiVorfall() {
+function AboutDiscrimination() {
   return (
     <Grid container direction="column" sx={{ height: '100vh' }}>
       <Grid sx={{ height: '8vh' }}>
@@ -13,7 +13,7 @@ function HilfeBeiVorfall() {
       <Grid sx={{ flex: 1 }}>
         <Typography variant="h4" sx={{ padding: 2 }}>
           {' '}
-          Hier kommen Hilfsangebote, Anlaufstellen etc hin{' '}
+          Infopage über diskriminierung{' '}
         </Typography>
       </Grid>
 
@@ -24,4 +24,4 @@ function HilfeBeiVorfall() {
   );
 }
 
-export default HilfeBeiVorfall;
+export default AboutDiscrimination;

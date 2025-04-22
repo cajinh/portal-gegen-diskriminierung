@@ -1,9 +1,11 @@
-import React from 'react';
-import { Grid, Typography } from '@mui/material';
+import React, { useState } from 'react';
+import { Grid } from '@mui/material';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import InfoSnackbar from '../components/InfoSnackbar';
+import Map from '../components/Map';
 
-function HilfeBeiVorfall() {
+function Home() {
   return (
     <Grid container direction="column" sx={{ height: '100vh' }}>
       <Grid sx={{ height: '8vh' }}>
@@ -11,11 +13,9 @@ function HilfeBeiVorfall() {
       </Grid>
 
       <Grid sx={{ flex: 1 }}>
-        <Typography variant="h4" sx={{ padding: 2 }}>
-          {' '}
-          Hier kommen Hilfsangebote, Anlaufstellen etc hin{' '}
-        </Typography>
+        <Map />
       </Grid>
+      <InfoSnackbar />
 
       <Grid sx={{ height: '5vh' }}>
         <Footer />
@@ -24,4 +24,4 @@ function HilfeBeiVorfall() {
   );
 }
 
-export default HilfeBeiVorfall;
+export default Home;

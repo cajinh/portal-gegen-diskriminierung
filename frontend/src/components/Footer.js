@@ -1,8 +1,15 @@
 import { Button, Grid, ThemeProvider } from '@mui/material';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import theme from '../theme';
 
-function Footer({ onTabChange }) {
+function Footer() {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate('/impressum');
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <Grid
@@ -17,8 +24,8 @@ function Footer({ onTabChange }) {
         <Button
           variant="text"
           color="primary.main"
-          onClick={() => onTabChange(3)}
           sx={{ height: 15, margin: 1, padding: 0, color: 'white' }}
+          onClick={handleClick}
         >
           Impressum
         </Button>
