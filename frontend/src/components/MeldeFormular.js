@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Paper,
   Grid,
@@ -10,11 +10,34 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import theme from '../theme';
-import { useState } from 'react';
 import DropdownSelect from './DropdownSelect';
+import { createReport } from '../api/report';
+import { v4 as uuidv4 } from 'uuid';
 
 function Meldeformular({ position, onClose }) {
   const [selectedOption, setSelectedOption] = useState('');
+  const [description, setDescription] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const data = {
+      report_id: uuidv4(),
+      category_name: selectedOption,
+      location_longitude: position[0],
+      location_latitude: position[1],
+      description: description,
+      imageUrl: imageUrl,
+    };
+
+    try {
+      await createReport(data);
+      alert('Meldung erfolgreich abgesendet!');
+    } catch (error) {
+      alert('Fehler beim Absenden der Meldung');
+    }
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -105,7 +128,21 @@ function Meldeformular({ position, onClose }) {
                 rows={4}
                 fullWidth
                 size="small"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
                 aria-label="Beschreibung der Erfahrung"
+              />
+            </Grid>
+
+            <Grid sx={{ width: '100%' }}>
+              <TextField
+                label="Bild-URL (optional)"
+                variant="outlined"
+                fullWidth
+                size="small"
+                value={imageUrl}
+                onChange={(e) => setImageUrl(e.target.value)}
+                aria-label="Bild-URL der Meldung"
               />
             </Grid>
 
@@ -114,6 +151,7 @@ function Meldeformular({ position, onClose }) {
                 variant="contained"
                 color="primary"
                 aria-label="Meldung absenden"
+                onClick={handleSubmit}
               >
                 Absenden
               </Button>
