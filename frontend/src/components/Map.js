@@ -12,6 +12,9 @@ import {
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import MeldeFormular from './MeldeFormular';
+import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
+import { point } from '@turf/helpers';
+import InfoSnackbar from './InfoSnackbar';
 
 // Marker-Icon
 let DefaultIcon = L.icon({
@@ -116,8 +119,19 @@ function Map() {
   }, []);
 
   const handleMapClick = (latlng) => {
-    setSelectedPosition([latlng.lat, latlng.lng]);
-    setShowForm(true);
+    if (!geoJsonData) return;
+
+    const pt = point([latlng.lng, latlng.lat]);
+    const polygon = geoJsonData.features[0];
+
+    const isInside = booleanPointInPolygon(pt, polygon);
+
+    if (isInside) {
+      setSelectedPosition([latlng.lat, latlng.lng]);
+      setShowForm(true);
+    } else {
+      alert('Bitte wähle eine Position innerhalb des markierten Bereichs.');
+    }
   };
 
   return (

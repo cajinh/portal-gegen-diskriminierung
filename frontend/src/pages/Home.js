@@ -15,8 +15,10 @@ function Home() {
       <Grid sx={{ flex: 1 }}>
         <Map />
       </Grid>
-      <InfoSnackbar />
-
+      <InfoSnackbar
+        message="Klicke auf die Karte um einen neuen Vorfall zu melden."
+        autoHideDuration={null}
+      />
       <Grid sx={{ height: '5vh' }}>
         <Footer />
       </Grid>

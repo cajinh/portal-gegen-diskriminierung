@@ -22,6 +22,11 @@ function Meldeformular({ position, onClose }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    if (!selectedOption) {
+      //alert('Bitte wähle eine Kategorie aus.');
+      return;
+    }
+
     const data = {
       report_id: uuidv4(),
       category_name: selectedOption,
@@ -117,12 +122,13 @@ function Meldeformular({ position, onClose }) {
                   '...des Alters',
                   '...der sexuellen Identität',
                 ]}
+                required
               />
             </Grid>
 
             <Grid sx={{ width: '100%' }}>
               <TextField
-                label="Beschreibung"
+                label="Beschreibung (optional)"
                 variant="outlined"
                 multiline
                 rows={4}

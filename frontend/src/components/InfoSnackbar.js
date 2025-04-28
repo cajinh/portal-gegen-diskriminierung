@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Snackbar, Alert, ThemeProvider } from '@mui/material';
 import theme from '../theme';
 
-function InfoSnackbar() {
+function InfoSnackbar({ message, autoHideDuration = 5000 }) {
   const [open, setOpen] = useState(true);
 
   const handleClose = (event, reason) => {
@@ -17,6 +17,7 @@ function InfoSnackbar() {
         onClose={handleClose}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         sx={{ mb: '4vh' }}
+        autoHideDuration={autoHideDuration}
       >
         <Alert
           onClose={handleClose}
@@ -29,7 +30,7 @@ function InfoSnackbar() {
             fontSize: '0.9rem',
           }}
         >
-          Klicke auf die Karte um einen neuen Vorfall zu melden.
+          {message}
         </Alert>
       </Snackbar>
     </ThemeProvider>

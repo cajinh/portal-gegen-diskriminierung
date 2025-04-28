@@ -1,9 +1,17 @@
 import React from 'react';
-import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import {
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  FormHelperText,
+} from '@mui/material';
 
-function DropdownSelect({ label, value, onChange, options }) {
+function DropdownSelect({ label, value, onChange, options, required = false }) {
+  const isError = required && !value;
+
   return (
-    <FormControl fullWidth size="small">
+    <FormControl fullWidth size="small" required={required} error={isError}>
       <InputLabel>{label}</InputLabel>
       <Select
         value={value}
@@ -16,6 +24,9 @@ function DropdownSelect({ label, value, onChange, options }) {
           </MenuItem>
         ))}
       </Select>
+      {isError && (
+        <FormHelperText>Bitte wählen Sie eine Kategorie aus</FormHelperText>
+      )}
     </FormControl>
   );
 }
