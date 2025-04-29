@@ -15,6 +15,7 @@ import MeldeFormular from './MeldeFormular';
 import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
 import { point } from '@turf/helpers';
 import InfoSnackbar from './InfoSnackbar';
+import { fetchReports } from '../api/report';
 
 // Marker-Icon
 let DefaultIcon = L.icon({
@@ -111,6 +112,14 @@ function Map() {
   const [geoJsonData, setGeoJsonData] = useState(null);
   const [selectedPosition, setSelectedPosition] = useState(null);
   const [showForm, setShowForm] = useState(false);
+  const [reports, setReports] = useState([]);
+
+  useEffect(() => {
+    fetchReports().then((data) => {
+      console.log('Gefetchte Reports:', data); // 👈 Hier wird alles ausgegeben
+      setReports(data);
+    });
+  }, []);
 
   useEffect(() => {
     fetch('/Vechta.geojson')
@@ -145,6 +154,7 @@ function Map() {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+
         {geoJsonData && (
           <>
             <OuterMask geoJsonData={geoJsonData} />
@@ -152,16 +162,33 @@ function Map() {
           </>
         )}
 
-        <Marker position={[52.7269, 8.2857]}>
-          <Popup>Vechta Zentrum</Popup>
-        </Marker>
-
         {/* Marker für neue Meldung */}
         {selectedPosition && (
           <Marker position={selectedPosition}>
             <Popup>Neue Meldung</Popup>
           </Marker>
         )}
+
+        {/* Marker für alle Meldungen in der DB */}
+        {reports.map((report, index) => {
+          const lat = parseFloat(report.location_longitude);
+          const lng = parseFloat(report.location_latitude);
+
+          console.log(`Marker #${index}`, lat, lng, report.description);
+
+          if (!isNaN(lat) && !isNaN(lng)) {
+            return (
+              <Marker key={index} position={[lat, lng]}>
+                <Popup>
+                  <strong>Meldung:</strong>{' '}
+                  {report.description || 'Keine Beschreibung'}
+                </Popup>
+              </Marker>
+            );
+          }
+
+          return null;
+        })}
 
         <MapClickHandler onMapClick={handleMapClick} />
       </MapContainer>
