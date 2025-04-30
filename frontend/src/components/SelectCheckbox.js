@@ -1,14 +1,6 @@
 import React from 'react';
-import { FormGroup, FormControlLabel, Checkbox } from '@mui/material';
-
-const categories = [
-  '...der ethnischen Herkunft',
-  '...des Geschlechts',
-  '...der Religion oder der Weltanschauung',
-  '...einer Behinderung',
-  '...des Alters',
-  '...der sexuellen Identität',
-];
+import { FormGroup, FormControlLabel, Checkbox, Box } from '@mui/material';
+import { categories } from '../constants/categories';
 
 function SelectCheckbox({ selectedOptions, setSelectedOptions }) {
   const handleChange = (index) => (event) => {
@@ -22,10 +14,14 @@ function SelectCheckbox({ selectedOptions, setSelectedOptions }) {
     setSelectedOptions(updated);
   };
 
+  const half = Math.ceil(categories.length / 2);
+  const leftColumn = categories.slice(0, half);
+  const rightColumn = categories.slice(half);
+
   return (
-    <>
+    <Box display="flex" gap={4}>
       <FormGroup>
-        {categories.map((label, index) => (
+        {leftColumn.map((label, index) => (
           <FormControlLabel
             key={index}
             control={
@@ -39,7 +35,22 @@ function SelectCheckbox({ selectedOptions, setSelectedOptions }) {
           />
         ))}
       </FormGroup>
-    </>
+      <FormGroup>
+        {rightColumn.map((label, index) => (
+          <FormControlLabel
+            key={index + half}
+            control={
+              <Checkbox
+                checked={selectedOptions.includes(index + half)}
+                onChange={handleChange(index + half)}
+                name={label}
+              />
+            }
+            label={label}
+          />
+        ))}
+      </FormGroup>
+    </Box>
   );
 }
 

@@ -15,6 +15,7 @@ import { fetchReports } from '../api/report';
 import OuterMask from './OuterMask';
 import FitBounds from './FitBounds';
 import { useDefaultMarkerIcon } from '../hooks/useMarkerIcon';
+import { categories as categoryLabels } from '../constants/categories';
 
 // Kartenklicks
 function MapClickHandler({ onMapClick }) {
@@ -99,8 +100,20 @@ function Map() {
             return (
               <Marker key={index} position={[lat, lng]}>
                 <Popup>
-                  <strong>Meldung:</strong>{' '}
-                  {report.description || 'Keine Beschreibung'}
+                  <div>
+                    <strong>Diskriminierung aufgrund </strong>
+                    {report.categories.length > 0
+                      ? report.categories.map((id, i) => (
+                          <React.Fragment key={id}>
+                            <strong>{categoryLabels[id]}</strong>
+                            {i < report.categories.length - 1 && ', '}
+                          </React.Fragment>
+                        ))
+                      : 'Keine Angabe'}
+                    <br />
+                    <strong>Beschreibung: </strong>
+                    {report.description || 'Keine Beschreibung'}
+                  </div>
                 </Popup>
               </Marker>
             );
