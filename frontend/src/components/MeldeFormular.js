@@ -20,25 +20,27 @@ function Meldeformular({ position, onClose }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     if (!selectedOption) {
-      //alert('Bitte wähle eine Kategorie aus.');
+      alert('Bitte wähle eine Kategorie aus.');
       return;
     }
-
+  
     const data = {
       report_id: uuidv4(),
-      category_name: selectedOption,
-      location_longitude: position[0],
-      location_latitude: position[1],
+      categories: [1, 2], 
+      location_lng: position[1],
+      location_lat: position[0],
       description: description,
     };
-
+  
     try {
       await createReport(data);
       alert('Meldung erfolgreich abgesendet!');
+      onClose();
     } catch (error) {
       alert('Fehler beim Absenden der Meldung');
+      console.error(error);
     }
   };
 

@@ -90,14 +90,14 @@ function Map() {
 
         {/* Marker für alle Meldungen in der DB */}
         {reports.map((report, index) => {
-          const lng = parseFloat(report.location_longitude);
-          const lat = parseFloat(report.location_latitude);
+          const lat = parseFloat(report.location_lat);
+          const lng = parseFloat(report.location_lng);
 
-          console.log(`Marker #${index}`, lng, lat, report.description);
+          console.log(`Marker #${index}`, lat, lng, report.description);
 
-          if (!isNaN(lng) && !isNaN(lat)) {
+          if (!isNaN(lat) && !isNaN(lng)) {
             return (
-              <Marker key={index} position={[lng, lat]}>
+              <Marker key={index} position={[lat, lng]}>
                 <Popup>
                   <strong>Meldung:</strong>{' '}
                   {report.description || 'Keine Beschreibung'}
