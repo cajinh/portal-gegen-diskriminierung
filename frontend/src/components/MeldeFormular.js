@@ -10,30 +10,30 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import theme from '../theme';
-import DropdownSelect from './DropdownSelect';
+import SelectCheckbox from './SelectCheckbox';
 import { createReport } from '../api/report';
 import { v4 as uuidv4 } from 'uuid';
 
 function Meldeformular({ position, onClose }) {
-  const [selectedOption, setSelectedOption] = useState('');
+  const [selectedOptions, setSelectedOptions] = useState('');
   const [description, setDescription] = useState('');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
-    if (!selectedOption) {
-      alert('Bitte wähle eine Kategorie aus.');
+
+    if (selectedOptions.length === 0) {
+      alert('Bitte wähle mindestens eine Kategorie aus.');
       return;
     }
-  
+
     const data = {
       report_id: uuidv4(),
-      categories: [1, 2], 
+      categories: selectedOptions,
       location_lng: position[1],
       location_lat: position[0],
       description: description,
     };
-  
+
     try {
       await createReport(data);
       alert('Meldung erfolgreich abgesendet!');
@@ -109,20 +109,9 @@ function Meldeformular({ position, onClose }) {
             </Grid>
 
             <Grid sx={{ width: '100%' }}>
-              <DropdownSelect
-                label="Kategorie wählen"
-                aria-label="Diskriminierungs-Kategorie wählen"
-                value={selectedOption}
-                onChange={setSelectedOption}
-                options={[
-                  '...der ethnischen Herkunft',
-                  '...des Geschlechts',
-                  '...der Religion oder der Weltanschauung',
-                  '...einer Behinderung',
-                  '...des Alters',
-                  '...der sexuellen Identität',
-                ]}
-                required
+              <SelectCheckbox
+                selectedOptions={selectedOptions}
+                setSelectedOptions={setSelectedOptions}
               />
             </Grid>
 
