@@ -13,16 +13,24 @@ import theme from '../theme';
 import SelectCheckbox from './SelectCheckbox';
 import { createReport } from '../api/report';
 import { v4 as uuidv4 } from 'uuid';
+import InfoSnackbar from './InfoSnackbar';
 
-function Meldeformular({ position, onClose }) {
+function Meldeformular({ position, onClose, onSuccess }) {
   const [selectedOptions, setSelectedOptions] = useState('');
   const [description, setDescription] = useState('');
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (selectedOptions.length === 0) {
-      alert('Bitte wähle mindestens eine Kategorie aus.');
+      setSnackbarMessage('Bitte wähle mindestens eine Kategorie aus.');
+      setSnackbarOpen(true);
       return;
     }
 
@@ -36,11 +44,9 @@ function Meldeformular({ position, onClose }) {
 
     try {
       await createReport(data);
-      alert('Meldung erfolgreich abgesendet!');
-      onClose();
+      onSuccess?.('Meldung erfolgreich abgesendet!', true);
     } catch (error) {
-      alert('Fehler beim Absenden der Meldung');
-      console.error(error);
+      onSuccess?.('Fehler beim Absenden der Meldung.', false);
     }
   };
 
@@ -101,7 +107,7 @@ function Meldeformular({ position, onClose }) {
 
             <Grid sx={{ width: '100%' }}>
               <Typography variant="h6" color="black">
-                Welche Art von Diskriminierung hast du erlebt?
+                Welche Art von Diskriminierung hast du erlebt? *
               </Typography>
               <Typography variant="body" color="black">
                 Diskriminierung aufgrund...
@@ -142,6 +148,11 @@ function Meldeformular({ position, onClose }) {
           </Grid>
         </Grid>
       </Paper>
+      <InfoSnackbar
+        open={snackbarOpen}
+        message={snackbarMessage}
+        onClose={handleSnackbarClose}
+      />
     </ThemeProvider>
   );
 }

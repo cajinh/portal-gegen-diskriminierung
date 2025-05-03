@@ -33,6 +33,8 @@ function Map() {
   const [selectedPosition, setSelectedPosition] = useState(null);
   const [showForm, setShowForm] = useState(false);
   const [reports, setReports] = useState([]);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
 
   useEffect(() => {
     fetchReports().then((data) => {
@@ -47,6 +49,13 @@ function Map() {
       .then((data) => setGeoJsonData(data));
   }, []);
 
+  const handleReportSuccess = (message) => {
+    setSnackbarMessage(message);
+    setSnackbarOpen(true);
+    setShowForm(false);
+    fetchReports().then(setReports);
+  };
+
   const handleMapClick = (latlng) => {
     if (!geoJsonData) return;
 
@@ -59,7 +68,10 @@ function Map() {
       setSelectedPosition([latlng.lat, latlng.lng]);
       setShowForm(true);
     } else {
-      alert('Bitte wähle eine Position innerhalb des markierten Bereichs.');
+      setSnackbarMessage(
+        'Bitte klicke innerhalb des markierten Bereichs, um eine Meldung zu erstellen.',
+      );
+      setSnackbarOpen(true);
     }
   };
 
@@ -130,8 +142,14 @@ function Map() {
         <MeldeFormular
           position={selectedPosition}
           onClose={() => setShowForm(false)}
+          onSuccess={handleReportSuccess}
         />
       )}
+      <InfoSnackbar
+        open={snackbarOpen}
+        message={snackbarMessage}
+        onClose={() => setSnackbarOpen(false)}
+      />
     </>
   );
 }

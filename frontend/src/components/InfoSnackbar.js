@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Snackbar, Alert, ThemeProvider } from '@mui/material';
 import theme from '../theme';
 
-function InfoSnackbar({ message, autoHideDuration = 5000 }) {
-  const [open, setOpen] = useState(true);
-
+function InfoSnackbar({ open, onClose, message, autoHideDuration = 5000 }) {
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') return;
-    setOpen(false);
+    onClose();
   };
 
   return (
