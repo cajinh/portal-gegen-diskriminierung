@@ -24,7 +24,13 @@ function Footer() {
         <Button
           variant="text"
           color="primary.main"
-          sx={{ height: 15, margin: 1, padding: 0, color: 'white' }}
+          sx={{
+            height: 15,
+            margin: 1,
+            padding: 0,
+            color: 'white',
+            fontSize: { xs: '0.7rem', sm: '0.9rem', md: '1rem' },
+          }}
           onClick={handleClick}
         >
           Impressum

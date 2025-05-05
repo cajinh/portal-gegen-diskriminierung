@@ -60,9 +60,10 @@ function Meldeformular({ position, onClose, onSuccess }) {
         sx={{
           position: 'fixed',
           borderRadius: 3,
-          top: '10vh',
-          right: '1vw',
-          width: '40vw',
+          top: { xs: '30vh', sm: '49vh', md: '10vh' },
+          right: { xs: '50%', md: '1vw' },
+          transform: { xs: 'translateX(50%)', md: 'none' },
+          width: { xs: '90vw', sm: '80vw', md: '40vw' },
           zIndex: 1000,
         }}
       >

@@ -141,7 +141,6 @@ function Map() {
                           padding: '0.5em',
                           marginTop: '0.25em',
                           borderRadius: '4px',
-                          backgroundColor: '#f9f9f9',
                         }}
                       >
                         {report.description || 'Keine Beschreibung'}

@@ -55,26 +55,35 @@ function Header() {
         }}
       >
         <Tab
-          icon={<HomeIcon />}
+          icon={<HomeIcon sx={{ fontSize: { xs: 0, sm: 24, md: 28 } }} />}
           iconPosition="start"
           label="Home"
-          sx={getTabStyle(activeTab === 0)}
+          sx={{
+            ...getTabStyle(activeTab === 0),
+            fontSize: { xs: '0.7rem', sm: '0.9rem', md: '1rem' },
+          }}
           component={Link}
           to="/"
         />
         <Tab
-          icon={<InfoIcon />}
+          icon={<InfoIcon sx={{ fontSize: { xs: 0, sm: 24, md: 28 } }} />}
           iconPosition="start"
           label="Über Diskriminierung"
-          sx={getTabStyle(activeTab === 1)}
+          sx={{
+            ...getTabStyle(activeTab === 1),
+            fontSize: { xs: '0.7rem', sm: '0.9rem', md: '1rem' },
+          }}
           component={Link}
           to="/aboutdiscrimination"
         />
         <Tab
-          icon={<HelpIcon />}
+          icon={<HelpIcon sx={{ fontSize: { xs: 0, sm: 24, md: 28 } }} />}
           iconPosition="start"
           label="Hilfe bei Vorfällen"
-          sx={getTabStyle(activeTab === 2)}
+          sx={{
+            ...getTabStyle(activeTab === 2),
+            fontSize: { xs: '0.7rem', sm: '0.9rem', md: '1rem' },
+          }}
           component={Link}
           to="/hilfe"
         />
