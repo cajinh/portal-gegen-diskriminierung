@@ -120,24 +120,37 @@ function Map() {
                 <Marker key={index} position={[lat, lng]}>
                   <Popup>
                     <div>
-                      <strong>Diskriminierung aufgrund </strong>
-                      {report.categories.length > 0
-                        ? report.categories.map((id, i) => (
-                            <React.Fragment key={id}>
-                              <strong>{categoryLabels[id]}</strong>
-                              {i < report.categories.length - 1 && ', '}
-                            </React.Fragment>
-                          ))
-                        : 'Keine Angabe'}
+                      <strong>
+                        {report.categories.length === 1
+                          ? 'Kategorie:'
+                          : 'Kategorien:'}
+                      </strong>
+                      <ul style={{ margin: 0, paddingLeft: '1em' }}>
+                        {report.categories.map((id) => (
+                          <li key={id}>
+                            Diskriminierung aufgrund {categoryLabels[id]}
+                          </li>
+                        ))}
+                      </ul>
+
                       <br />
-                      <strong>Beschreibung: </strong>
-                      {report.description || 'Keine Beschreibung'}
+                      <strong>Beschreibung:</strong>
+                      <div
+                        style={{
+                          border: '1px solid #ccc',
+                          padding: '0.5em',
+                          marginTop: '0.25em',
+                          borderRadius: '4px',
+                          backgroundColor: '#f9f9f9',
+                        }}
+                      >
+                        {report.description || 'Keine Beschreibung'}
+                      </div>
                     </div>
                   </Popup>
                 </Marker>
               );
             }
-
             return null;
           })}
         </MarkerClusterGroup>

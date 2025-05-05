@@ -130,9 +130,22 @@ function Meldeformular({ position, onClose, onSuccess }) {
                 fullWidth
                 size="small"
                 value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (value.length <= 300) {
+                    setDescription(value);
+                  }
+                }}
                 aria-label="Beschreibung der Erfahrung"
               />
+              <Typography
+                variant="caption"
+                color={description.length >= 270 ? 'error' : 'textSecondary'}
+                align="right"
+                sx={{ display: 'block', textAlign: 'right', mt: 0.5 }}
+              >
+                {description.length}/300 Zeichen
+              </Typography>
             </Grid>
 
             <Grid container justifyContent="flex-end">
