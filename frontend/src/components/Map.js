@@ -16,6 +16,7 @@ import OuterMask from './OuterMask';
 import FitBounds from './FitBounds';
 import { useDefaultMarkerIcon } from '../hooks/useMarkerIcon';
 import { categories as categoryLabels } from '../constants/categories';
+import MarkerClusterGroup from 'react-leaflet-cluster';
 
 // Kartenklicks
 function MapClickHandler({ onMapClick }) {
@@ -53,6 +54,7 @@ function Map() {
     setSnackbarMessage(message);
     setSnackbarOpen(true);
     setShowForm(false);
+    setSelectedPosition(null);
     fetchReports().then(setReports);
   };
 
@@ -65,8 +67,14 @@ function Map() {
     const isInside = booleanPointInPolygon(pt, polygon);
 
     if (isInside) {
-      setSelectedPosition([latlng.lat, latlng.lng]);
-      setShowForm(true);
+      if (
+        !selectedPosition ||
+        selectedPosition[0] !== latlng.lat ||
+        selectedPosition[1] !== latlng.lng
+      ) {
+        setSelectedPosition([latlng.lat, latlng.lng]);
+        setShowForm(true);
+      }
     } else {
       setSnackbarMessage(
         'Bitte klicke innerhalb des markierten Bereichs, um eine Meldung zu erstellen.',
@@ -102,37 +110,37 @@ function Map() {
         )}
 
         {/* Marker für alle Meldungen in der DB */}
-        {reports.map((report, index) => {
-          const lat = parseFloat(report.location_lat);
-          const lng = parseFloat(report.location_lng);
+        <MarkerClusterGroup>
+          {reports.map((report, index) => {
+            const lat = parseFloat(report.location_lat);
+            const lng = parseFloat(report.location_lng);
 
-          console.log(`Marker #${index}`, lat, lng, report.description);
+            if (!isNaN(lat) && !isNaN(lng)) {
+              return (
+                <Marker key={index} position={[lat, lng]}>
+                  <Popup>
+                    <div>
+                      <strong>Diskriminierung aufgrund </strong>
+                      {report.categories.length > 0
+                        ? report.categories.map((id, i) => (
+                            <React.Fragment key={id}>
+                              <strong>{categoryLabels[id]}</strong>
+                              {i < report.categories.length - 1 && ', '}
+                            </React.Fragment>
+                          ))
+                        : 'Keine Angabe'}
+                      <br />
+                      <strong>Beschreibung: </strong>
+                      {report.description || 'Keine Beschreibung'}
+                    </div>
+                  </Popup>
+                </Marker>
+              );
+            }
 
-          if (!isNaN(lat) && !isNaN(lng)) {
-            return (
-              <Marker key={index} position={[lat, lng]}>
-                <Popup>
-                  <div>
-                    <strong>Diskriminierung aufgrund </strong>
-                    {report.categories.length > 0
-                      ? report.categories.map((id, i) => (
-                          <React.Fragment key={id}>
-                            <strong>{categoryLabels[id]}</strong>
-                            {i < report.categories.length - 1 && ', '}
-                          </React.Fragment>
-                        ))
-                      : 'Keine Angabe'}
-                    <br />
-                    <strong>Beschreibung: </strong>
-                    {report.description || 'Keine Beschreibung'}
-                  </div>
-                </Popup>
-              </Marker>
-            );
-          }
-
-          return null;
-        })}
+            return null;
+          })}
+        </MarkerClusterGroup>
 
         <MapClickHandler onMapClick={handleMapClick} />
       </MapContainer>
@@ -141,7 +149,10 @@ function Map() {
       {showForm && (
         <MeldeFormular
           position={selectedPosition}
-          onClose={() => setShowForm(false)}
+          onClose={() => {
+            setShowForm(false);
+            setSelectedPosition(null);
+          }}
           onSuccess={handleReportSuccess}
         />
       )}
