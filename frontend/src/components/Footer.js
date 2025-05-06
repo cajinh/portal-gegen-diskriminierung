@@ -29,7 +29,7 @@ function Footer() {
             margin: 1,
             padding: 0,
             color: 'white',
-            fontSize: { xs: '0.6rem', sm: '0.7rem', md: '0.8rem' },
+            fontSize: { xs: '0.6rem', sm: '0.8rem', md: '0.9rem' },
           }}
           onClick={handleClick}
         >

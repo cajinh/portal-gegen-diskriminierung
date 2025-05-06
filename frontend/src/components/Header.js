@@ -63,7 +63,7 @@ function Header() {
           icon={
             <HomeIcon
               sx={{
-                fontSize: { xs: 0, sm: 24, md: 28 },
+                fontSize: { xs: 0, sm: 18, md: 20 },
                 display: { xs: 'none', sm: 'block' },
               }}
             />
@@ -82,7 +82,7 @@ function Header() {
           icon={
             <InfoIcon
               sx={{
-                fontSize: { xs: 0, sm: 24, md: 28 },
+                fontSize: { xs: 0, sm: 18, md: 20 },
                 display: { xs: 'none', sm: 'block' },
               }}
             />
@@ -101,7 +101,7 @@ function Header() {
           icon={
             <HelpIcon
               sx={{
-                fontSize: { xs: 0, sm: 24, md: 28 },
+                fontSize: { xs: 0, sm: 18, md: 20 },
                 display: { xs: 'none', sm: 'block' },
               }}
             />

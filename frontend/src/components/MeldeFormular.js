@@ -77,7 +77,7 @@ function Meldeformular({ position, onClose, onSuccess }) {
             sx={{
               backgroundColor: 'primary.main',
               borderRadius: 3,
-              padding: 2,
+              padding: 1.5,
               '@media (max-width: 600px)': {
                 paddingTop: 1,
                 paddingBottom: 1,
@@ -90,9 +90,9 @@ function Meldeformular({ position, onClose, onSuccess }) {
               color="white"
               sx={{
                 fontSize: {
-                  xs: '1rem',
-                  sm: '1.25rem',
-                  md: '1.5rem',
+                  xs: '0.7rem',
+                  sm: '0.9rem',
+                  md: '1rem',
                 },
               }}
             >
@@ -136,9 +136,9 @@ function Meldeformular({ position, onClose, onSuccess }) {
                 color="black"
                 sx={{
                   fontSize: {
-                    xs: '1rem',
-                    sm: '1.25rem',
-                    md: '1.5rem',
+                    xs: '0.7rem',
+                    sm: '0.9rem',
+                    md: '1rem',
                   },
                 }}
               >
@@ -149,9 +149,9 @@ function Meldeformular({ position, onClose, onSuccess }) {
                 color="black"
                 sx={{
                   fontSize: {
-                    xs: '0.7rem',
+                    xs: '0.6rem',
                     sm: '0.8rem',
-                    md: '1rem',
+                    md: '0.9rem',
                   },
                 }}
               >
@@ -186,9 +186,9 @@ function Meldeformular({ position, onClose, onSuccess }) {
                   inputLabel: {
                     sx: {
                       fontSize: {
-                        xs: '0.8rem',
-                        sm: '0.9rem',
-                        md: '1rem',
+                        xs: '0.6rem',
+                        sm: '0.8rem',
+                        md: '0.9rem',
                       },
                     },
                   },
@@ -199,7 +199,16 @@ function Meldeformular({ position, onClose, onSuccess }) {
                 variant="caption"
                 color={description.length >= 270 ? 'error' : 'textSecondary'}
                 align="right"
-                sx={{ display: 'block', textAlign: 'right', mt: 0.5 }}
+                sx={{
+                  display: 'block',
+                  textAlign: 'right',
+                  mt: 0.5,
+                  fontSize: {
+                    xs: '0.5rem',
+                    sm: '0.7rem',
+                    md: '0.8rem',
+                  },
+                }}
               >
                 {description.length}/300 Zeichen
               </Typography>
@@ -213,9 +222,9 @@ function Meldeformular({ position, onClose, onSuccess }) {
                 onClick={handleSubmit}
                 sx={{
                   fontSize: {
-                    xs: '0.7rem',
+                    xs: '0.6rem',
                     sm: '0.8rem',
-                    md: '1rem',
+                    md: '0.9rem',
                   },
                 }}
               >
