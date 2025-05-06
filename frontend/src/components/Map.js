@@ -18,6 +18,7 @@ import { useDefaultMarkerIcon, useNewMarkerIcon } from '../hooks/useMarkerIcon';
 import { categories as categoryLabels } from '../constants/categories';
 import MarkerClusterGroup from 'react-leaflet-cluster';
 import GeoSearchControlComponent from './GeoSearchControl';
+import ZoomToMarker from './ZoomToMarker';
 
 // Kartenklicks
 function MapClickHandler({ onMapClick }) {
@@ -125,9 +126,12 @@ function Map() {
 
         {/* Marker für neue Meldung */}
         {selectedPosition && (
-          <Marker position={selectedPosition} icon={newMarkerIcon}>
-            <Popup>Neue Meldung</Popup>
-          </Marker>
+          <>
+            <Marker position={selectedPosition} icon={newMarkerIcon}>
+              <Popup>Neue Meldung</Popup>
+            </Marker>
+            <ZoomToMarker position={selectedPosition} />
+          </>
         )}
 
         {/* Marker für alle Meldungen in der DB */}
