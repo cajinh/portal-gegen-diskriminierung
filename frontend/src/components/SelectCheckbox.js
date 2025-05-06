@@ -29,9 +29,26 @@ function SelectCheckbox({ selectedOptions, setSelectedOptions }) {
                 checked={selectedOptions.includes(index)}
                 onChange={handleChange(index)}
                 name={label}
+                sx={{
+                  transform: {
+                    xs: 'scale(0.8)',
+                    sm: 'scale(0.9)',
+                    md: 'scale(1)',
+                  },
+                  padding: '4px',
+                }}
               />
             }
             label={label}
+            sx={{
+              '& .MuiFormControlLabel-label': {
+                fontSize: {
+                  xs: '0.7rem',
+                  sm: '0.8rem',
+                  md: '1rem',
+                },
+              },
+            }}
           />
         ))}
       </FormGroup>
@@ -44,9 +61,26 @@ function SelectCheckbox({ selectedOptions, setSelectedOptions }) {
                 checked={selectedOptions.includes(index + half)}
                 onChange={handleChange(index + half)}
                 name={label}
+                sx={{
+                  transform: {
+                    xs: 'scale(0.8)',
+                    sm: 'scale(0.9)',
+                    md: 'scale(1)',
+                  },
+                  padding: '4px',
+                }}
               />
             }
             label={label}
+            sx={{
+              '& .MuiFormControlLabel-label': {
+                fontSize: {
+                  xs: '0.7rem',
+                  sm: '0.8rem',
+                  md: '1rem',
+                },
+              },
+            }}
           />
         ))}
       </FormGroup>

@@ -60,8 +60,9 @@ function Meldeformular({ position, onClose, onSuccess }) {
         sx={{
           position: 'fixed',
           borderRadius: 3,
-          top: { xs: '30vh', sm: '49vh', md: '10vh' },
+          top: { xs: 'auto', sm: 'auto', md: '10vh' },
           right: { xs: '50%', md: '1vw' },
+          bottom: { xs: '7vh', sm: '7vh', md: 'auto' },
           transform: { xs: 'translateX(50%)', md: 'none' },
           width: { xs: '90vw', sm: '80vw', md: '40vw' },
           zIndex: 1000,
@@ -77,11 +78,27 @@ function Meldeformular({ position, onClose, onSuccess }) {
               backgroundColor: 'primary.main',
               borderRadius: 3,
               padding: 2,
+              '@media (max-width: 600px)': {
+                paddingTop: 1,
+                paddingBottom: 1,
+              },
             }}
           >
-            <Typography id="meldeformular-title" variant="h6" color="white">
+            <Typography
+              id="meldeformular-title"
+              variant="h6"
+              color="white"
+              sx={{
+                fontSize: {
+                  xs: '1rem',
+                  sm: '1.25rem',
+                  md: '1.5rem',
+                },
+              }}
+            >
               Neue Meldung erstellen
             </Typography>
+
             <IconButton
               onClick={onClose}
               size="small"
@@ -101,16 +118,43 @@ function Meldeformular({ position, onClose, onSuccess }) {
                 variant="body2"
                 color="black"
                 id="meldeformular-description"
+                sx={{
+                  fontSize: {
+                    xs: '0.7rem',
+                    sm: '0.8rem',
+                    md: '1rem',
+                  },
+                }}
               >
                 Position: {position[0].toFixed(5)}, {position[1].toFixed(5)}
               </Typography>
             </Grid>
 
             <Grid sx={{ width: '100%' }}>
-              <Typography variant="h6" color="black">
+              <Typography
+                variant="h6"
+                color="black"
+                sx={{
+                  fontSize: {
+                    xs: '1rem',
+                    sm: '1.25rem',
+                    md: '1.5rem',
+                  },
+                }}
+              >
                 Welche Art von Diskriminierung hast du erlebt? *
               </Typography>
-              <Typography variant="body" color="black">
+              <Typography
+                variant="body"
+                color="black"
+                sx={{
+                  fontSize: {
+                    xs: '0.7rem',
+                    sm: '0.8rem',
+                    md: '1rem',
+                  },
+                }}
+              >
                 Diskriminierung aufgrund...
               </Typography>
             </Grid>
@@ -138,7 +182,19 @@ function Meldeformular({ position, onClose, onSuccess }) {
                   }
                 }}
                 aria-label="Beschreibung der Erfahrung"
+                slotProps={{
+                  inputLabel: {
+                    sx: {
+                      fontSize: {
+                        xs: '0.8rem',
+                        sm: '0.9rem',
+                        md: '1rem',
+                      },
+                    },
+                  },
+                }}
               />
+
               <Typography
                 variant="caption"
                 color={description.length >= 270 ? 'error' : 'textSecondary'}
@@ -155,6 +211,13 @@ function Meldeformular({ position, onClose, onSuccess }) {
                 color="primary"
                 aria-label="Meldung absenden"
                 onClick={handleSubmit}
+                sx={{
+                  fontSize: {
+                    xs: '0.7rem',
+                    sm: '0.8rem',
+                    md: '1rem',
+                  },
+                }}
               >
                 Absenden
               </Button>

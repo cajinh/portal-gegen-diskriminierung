@@ -52,37 +52,66 @@ function Header() {
         aria-label="Tabs mit Hintergrund"
         sx={{
           display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'space-around',
+          '& .MuiTab-root': {
+            minWidth: 'auto',
+          },
         }}
       >
         <Tab
-          icon={<HomeIcon sx={{ fontSize: { xs: 0, sm: 24, md: 28 } }} />}
+          icon={
+            <HomeIcon
+              sx={{
+                fontSize: { xs: 0, sm: 24, md: 28 },
+                display: { xs: 'none', sm: 'block' },
+              }}
+            />
+          }
           iconPosition="start"
           label="Home"
           sx={{
             ...getTabStyle(activeTab === 0),
             fontSize: { xs: '0.7rem', sm: '0.9rem', md: '1rem' },
+            padding: { xs: '6px', sm: '8px', md: '10px' },
           }}
           component={Link}
           to="/"
         />
         <Tab
-          icon={<InfoIcon sx={{ fontSize: { xs: 0, sm: 24, md: 28 } }} />}
+          icon={
+            <InfoIcon
+              sx={{
+                fontSize: { xs: 0, sm: 24, md: 28 },
+                display: { xs: 'none', sm: 'block' },
+              }}
+            />
+          }
           iconPosition="start"
           label="Über Diskriminierung"
           sx={{
             ...getTabStyle(activeTab === 1),
             fontSize: { xs: '0.7rem', sm: '0.9rem', md: '1rem' },
+            padding: { xs: '6px', sm: '8px', md: '10px' },
           }}
           component={Link}
           to="/aboutdiscrimination"
         />
         <Tab
-          icon={<HelpIcon sx={{ fontSize: { xs: 0, sm: 24, md: 28 } }} />}
+          icon={
+            <HelpIcon
+              sx={{
+                fontSize: { xs: 0, sm: 24, md: 28 },
+                display: { xs: 'none', sm: 'block' },
+              }}
+            />
+          }
           iconPosition="start"
           label="Hilfe bei Vorfällen"
           sx={{
             ...getTabStyle(activeTab === 2),
             fontSize: { xs: '0.7rem', sm: '0.9rem', md: '1rem' },
+            padding: { xs: '6px', sm: '8px', md: '10px' },
           }}
           component={Link}
           to="/hilfe"
