@@ -14,9 +14,10 @@ import InfoSnackbar from './InfoSnackbar';
 import { fetchReports } from '../api/report';
 import OuterMask from './OuterMask';
 import FitBounds from './FitBounds';
-import { useDefaultMarkerIcon } from '../hooks/useMarkerIcon';
+import { useDefaultMarkerIcon, useNewMarkerIcon } from '../hooks/useMarkerIcon';
 import { categories as categoryLabels } from '../constants/categories';
 import MarkerClusterGroup from 'react-leaflet-cluster';
+import GeoSearchControlComponent from './GeoSearchControl';
 
 // Kartenklicks
 function MapClickHandler({ onMapClick }) {
@@ -29,7 +30,8 @@ function MapClickHandler({ onMapClick }) {
 }
 
 function Map() {
-  useDefaultMarkerIcon();
+  const defaultMarkerIcon = useDefaultMarkerIcon();
+  const newMarkerIcon = useNewMarkerIcon();
   const [geoJsonData, setGeoJsonData] = useState(null);
   const [selectedPosition, setSelectedPosition] = useState(null);
   const [showForm, setShowForm] = useState(false);
@@ -94,6 +96,25 @@ function Map() {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        <GeoSearchControlComponent
+          onResult={({ lat, lng }) => {
+            if (!geoJsonData) return;
+
+            const pt = point([lng, lat]);
+            const polygon = geoJsonData.features[0];
+            const isInside = booleanPointInPolygon(pt, polygon);
+
+            if (isInside) {
+              setSelectedPosition([lat, lng]);
+              setShowForm(true);
+            } else {
+              setSnackbarMessage(
+                'Die Adresse liegt außerhalb des markierten Gebiets.',
+              );
+              setSnackbarOpen(true);
+            }
+          }}
+        />
 
         {geoJsonData && (
           <>
@@ -104,7 +125,7 @@ function Map() {
 
         {/* Marker für neue Meldung */}
         {selectedPosition && (
-          <Marker position={selectedPosition}>
+          <Marker position={selectedPosition} icon={newMarkerIcon}>
             <Popup>Neue Meldung</Popup>
           </Marker>
         )}
@@ -117,7 +138,11 @@ function Map() {
 
             if (!isNaN(lat) && !isNaN(lng)) {
               return (
-                <Marker key={index} position={[lat, lng]}>
+                <Marker
+                  key={index}
+                  position={[lat, lng]}
+                  icon={defaultMarkerIcon}
+                >
                   <Popup>
                     <div>
                       <strong>
