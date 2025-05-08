@@ -166,23 +166,22 @@ function Map() {
                         paddingBottom: '1.5em',
                       }}
                     >
-                      <a
-                        href="#"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          handleReportClick(report.id);
-                        }}
+                      <button
+                        onClick={() => handleReportClick(report.id)}
                         style={{
                           position: 'absolute',
                           right: '0.5em',
                           fontSize: '0.85em',
                           color: '#d00',
                           textDecoration: 'underline',
+                          background: 'none',
+                          border: 'none',
+                          padding: 0,
                           cursor: 'pointer',
                         }}
                       >
                         Melden
-                      </a>
+                      </button>
 
                       <div>
                         <strong>

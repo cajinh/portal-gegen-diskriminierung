@@ -13,26 +13,17 @@ import theme from '../theme';
 import SelectCheckbox from './SelectCheckbox';
 import { createReport } from '../api/report';
 import { v4 as uuidv4 } from 'uuid';
-import InfoSnackbar from './InfoSnackbar';
 
 function Meldeformular({ position, onClose, onSuccess }) {
   const [selectedOptions, setSelectedOptions] = useState('');
   const [description, setDescription] = useState('');
-  const [snackbarMessage, setSnackbarMessage] = useState('');
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-
-  const handleSnackbarClose = () => {
-    setSnackbarOpen(false);
-  };
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setFormSubmitted(true);
 
-    if (selectedOptions.length === 0) {
-      setSnackbarMessage('Bitte wähle mindestens eine Kategorie aus.');
-      setSnackbarOpen(true);
-      return;
-    }
+    if (selectedOptions.length === 0) return;
 
     const data = {
       report_id: uuidv4(),
@@ -166,6 +157,23 @@ function Meldeformular({ position, onClose, onSuccess }) {
               />
             </Grid>
 
+            {formSubmitted && selectedOptions.length === 0 && (
+              <Typography
+                variant="body2"
+                color="error"
+                sx={{
+                  fontSize: {
+                    xs: '0.6rem',
+                    sm: '0.8rem',
+                    md: '0.9rem',
+                  },
+                  mt: 1,
+                }}
+              >
+                Du musst mindestens eine Kategorie auswählen.
+              </Typography>
+            )}
+
             <Grid sx={{ width: '100%' }}>
               <TextField
                 label="Beschreibung (optional)"
@@ -234,11 +242,6 @@ function Meldeformular({ position, onClose, onSuccess }) {
           </Grid>
         </Grid>
       </Paper>
-      <InfoSnackbar
-        open={snackbarOpen}
-        message={snackbarMessage}
-        onClose={handleSnackbarClose}
-      />
     </ThemeProvider>
   );
 }
