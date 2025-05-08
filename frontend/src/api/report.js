@@ -32,17 +32,21 @@ export async function fetchReports() {
   return response.json();
 }
 
-export async function fetchReportById(id) {
-  const response = await fetch(
-    `http://localhost/portalgegendiskriminierung/api/report.php?id=${id}`,
-    {
-      method: 'GET',
-    },
-  );
+export async function updateReport(reportId) {
+  try {
+    const response = await fetch(
+      `http://localhost/portalgegendiskriminierung/api/report.php?id=${reportId}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ increment_report_count: true }),
+      },
+    );
 
-  if (!response.ok) {
-    throw new Error('Fehler beim Abrufen des Reports');
+    const data = await response.json();
+  } catch (error) {
+    console.error('Fehler beim Hochzählen:', error);
   }
-
-  return response.json();
 }

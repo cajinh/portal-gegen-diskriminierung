@@ -11,7 +11,7 @@ import MeldeFormular from './MeldeFormular';
 import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
 import { point } from '@turf/helpers';
 import InfoSnackbar from './InfoSnackbar';
-import { fetchReports } from '../api/report';
+import { fetchReports, updateReport } from '../api/report';
 import OuterMask from './OuterMask';
 import FitBounds from './FitBounds';
 import { useDefaultMarkerIcon, useNewMarkerIcon } from '../hooks/useMarkerIcon';
@@ -59,6 +59,16 @@ function Map() {
     setShowForm(false);
     setSelectedPosition(null);
     fetchReports().then(setReports);
+  };
+
+  const handleReportClick = async (reportId) => {
+    try {
+      await updateReport(reportId);
+      handleReportSuccess('Vorfall erfolgreich gemeldet');
+    } catch (error) {
+      setSnackbarMessage('Fehler beim Melden.');
+      setSnackbarOpen(true);
+    }
   };
 
   const handleMapClick = (latlng) => {
@@ -148,31 +158,57 @@ function Map() {
                   icon={defaultMarkerIcon}
                 >
                   <Popup>
-                    <div>
-                      <strong>
-                        {report.categories.length === 1
-                          ? 'Kategorie:'
-                          : 'Kategorien:'}
-                      </strong>
-                      <ul style={{ margin: 0, paddingLeft: '1em' }}>
-                        {report.categories.map((id) => (
-                          <li key={id}>
-                            Diskriminierung aufgrund {categoryLabels[id]}
-                          </li>
-                        ))}
-                      </ul>
-
-                      <br />
-                      <strong>Beschreibung:</strong>
-                      <div
+                    <div
+                      style={{
+                        position: 'relative',
+                        minWidth: '200px',
+                        paddingBottom: '1.5em',
+                      }}
+                    >
+                      <a
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleReportClick(report.id);
+                        }}
                         style={{
-                          border: '1px solid #ccc',
-                          padding: '0.5em',
-                          marginTop: '0.25em',
-                          borderRadius: '4px',
+                          position: 'absolute',
+                          right: '0.5em',
+                          fontSize: '0.85em',
+                          color: '#d00',
+                          textDecoration: 'underline',
+                          cursor: 'pointer',
                         }}
                       >
-                        {report.description || 'Keine Beschreibung'}
+                        Melden
+                      </a>
+
+                      <div>
+                        <strong>
+                          {report.categories.length === 1
+                            ? 'Kategorie:'
+                            : 'Kategorien:'}
+                        </strong>
+                        <ul style={{ margin: 0, paddingLeft: '1em' }}>
+                          {report.categories.map((id) => (
+                            <li key={id}>
+                              Diskriminierung aufgrund {categoryLabels[id]}
+                            </li>
+                          ))}
+                        </ul>
+
+                        <br />
+                        <strong>Beschreibung:</strong>
+                        <div
+                          style={{
+                            border: '1px solid #ccc',
+                            padding: '0.5em',
+                            marginTop: '0.25em',
+                            borderRadius: '4px',
+                          }}
+                        >
+                          {report.description || 'Keine Beschreibung'}
+                        </div>
                       </div>
                     </div>
                   </Popup>
