@@ -146,7 +146,11 @@ function Map() {
         )}
 
         {/* Marker für alle Meldungen in der DB */}
-        <MarkerClusterGroup>
+        <MarkerClusterGroup
+          spiderfyOnMaxZoom={false}
+          showCoverageOnHover={false}
+          removeOutsideVisibleBounds={false}
+        >
           {reports.map((report, index) => {
             const lat = parseFloat(report.location_lat);
             const lng = parseFloat(report.location_lng);
