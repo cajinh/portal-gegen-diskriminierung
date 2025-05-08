@@ -13,11 +13,13 @@ import theme from '../theme';
 import SelectCheckbox from './SelectCheckbox';
 import { createReport } from '../api/report';
 import { v4 as uuidv4 } from 'uuid';
+import HCaptcha from '@hcaptcha/react-hcaptcha';
 
 function Meldeformular({ position, onClose, onSuccess }) {
   const [selectedOptions, setSelectedOptions] = useState('');
   const [description, setDescription] = useState('');
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState(null);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -25,12 +27,15 @@ function Meldeformular({ position, onClose, onSuccess }) {
 
     if (selectedOptions.length === 0) return;
 
+    if (!captchaToken) return;
+
     const data = {
       report_id: uuidv4(),
       categories: selectedOptions,
       location_lng: position[1],
       location_lat: position[0],
       description: description,
+      captchaToken,
     };
 
     try {
@@ -212,14 +217,45 @@ function Meldeformular({ position, onClose, onSuccess }) {
                   textAlign: 'right',
                   mt: 0.5,
                   fontSize: {
-                    xs: '0.5rem',
-                    sm: '0.7rem',
-                    md: '0.8rem',
+                    xs: '0.3rem',
+                    sm: '0.5rem',
+                    md: '0.6rem',
                   },
                 }}
               >
                 {description.length}/300 Zeichen
               </Typography>
+            </Grid>
+
+            {formSubmitted && !captchaToken && (
+              <Typography
+                variant="body2"
+                color="error"
+                sx={{
+                  fontSize: {
+                    xs: '0.6rem',
+                    sm: '0.8rem',
+                    md: '0.9rem',
+                  },
+                  mt: 1,
+                }}
+              >
+                Bitte das CAPTCHA ausfüllen.
+              </Typography>
+            )}
+
+            <Grid
+              sx={{
+                width: '100%',
+                display: 'flex',
+                justifyContent: 'center',
+              }}
+            >
+              <HCaptcha
+                sitekey="8c1e7e42-c92c-4698-adc6-f7603fece8e0"
+                onVerify={(token) => setCaptchaToken(token)}
+                onExpire={() => setCaptchaToken(null)}
+              />
             </Grid>
 
             <Grid container justifyContent="flex-end">
