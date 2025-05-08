@@ -42,6 +42,9 @@ function Header() {
   const getTabStyle = (isSelected) => ({
     ...tabBaseStyle,
     backgroundColor: isSelected ? 'primary.main' : 'transparent',
+    '&:hover': {
+      backgroundColor: isSelected ? 'primary.dark' : 'lightgrey',
+    },
   });
 
   return (

@@ -23,11 +23,20 @@ Dieses Projekt verwendet unter anderem folgende Open-Source-Bibliotheken:
 - [Testing Library](https://testing-library.com/) – Testwerkzeuge für React-Komponenten (MIT)
 - [Prettier](https://prettier.io/) – Code-Formatter (MIT)
 
-## Kartendaten & Attribution
+## Nutzung von Kartendaten
 
-Diese Anwendung verwendet Kartendaten von [OpenStreetMap](https://www.openstreetmap.org/), verfügbar unter der [Open Database License (ODbL)](https://opendatacommons.org/licenses/odbl/).
+Diese Anwendung verwendet Kartendaten von **OpenStreetMap**, die über den **FOSSGIS e.V.** Tile-Server bereitgestellt werden. Die Kartenkacheln werden von den Servern von [FOSSGIS](https://www.fossgis.de/) in Deutschland geladen.
 
-© OpenStreetMap-Mitwirkende – [osm.org/copyright](https://www.openstreetmap.org/copyright)
+### Lizenz und Nutzung
+
+- **Nicht-kommerzielle Nutzung**: Die Nutzung der Kartenkacheln ist auf nicht-kommerzielle Projekte beschränkt. Jegliche kommerzielle Nutzung ist untersagt.
+- **Attribution**: Die Kacheln werden mit folgender Attribution bereitgestellt:
+  > „© OpenStreetMap-Mitwirkende, Tiles courtesy of FOSSGIS e.V.“
+- **Fair Use**: Bitte beachte, dass unnötige Anfragen an den Server vermieden werden sollten, um eine Überlastung zu verhindern. Eine lokale Speicherung oder das Vorladen großer Bereiche der Kartenkacheln ist ebenfalls nicht gestattet.
+
+### Datenschutz
+
+Beim Laden der Karten werden **IP-Adressen an die FOSSGIS-Server übermittelt**. Weitere Informationen zum Datenschutz und der Nutzung von OpenStreetMap-Daten findest du in der Datenschutzerklärung von [FOSSGIS](https://www.fossgis.de/arbeitsgruppen/osm-server/nutzungsbedingungen/).
 
 ## Lizenz
 

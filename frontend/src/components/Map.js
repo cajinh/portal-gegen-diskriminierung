@@ -104,7 +104,7 @@ function Map() {
         style={{ height: '87vh', width: '100vw' }}
       >
         <TileLayer
-          attribution="© OpenStreetMap-Mitwirkende, Tiles © FOSSGIS"
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> Mitwirkende, Tiles courtesy of <a href="https://www.fossgis.de/">FOSSGIS e.V.</a>, <a href="https://www.openstreetmap.org/fixthemap">Mitmachen/Fehler melden</a>'
           url="https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png"
         />
 
