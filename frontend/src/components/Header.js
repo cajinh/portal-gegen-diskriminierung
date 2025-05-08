@@ -22,7 +22,7 @@ function Header() {
         setActiveTab(2);
         break;
       default:
-        setActiveTab(0);
+        setActiveTab(false);
         break;
     }
   }, [location]);

@@ -104,9 +104,10 @@ function Map() {
         style={{ height: '87vh', width: '100vw' }}
       >
         <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution="© OpenStreetMap-Mitwirkende, Tiles © FOSSGIS"
+          url="https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png"
         />
+
         <GeoSearchControlComponent
           onResult={({ lat, lng }) => {
             if (!geoJsonData) return;

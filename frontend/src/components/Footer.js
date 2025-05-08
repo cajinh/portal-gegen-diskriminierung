@@ -6,8 +6,12 @@ import theme from '../theme';
 function Footer() {
   const navigate = useNavigate();
 
-  const handleClick = () => {
+  const handleClickImpressum = () => {
     navigate('/impressum');
+  };
+
+  const handleClickDatenschutz = () => {
+    navigate('/datenschutz');
   };
 
   return (
@@ -31,7 +35,21 @@ function Footer() {
             color: 'white',
             fontSize: { xs: '0.6rem', sm: '0.8rem', md: '0.9rem' },
           }}
-          onClick={handleClick}
+          onClick={handleClickDatenschutz}
+        >
+          DATENSCHUTZERKLÄRUNG
+        </Button>
+        <Button
+          variant="text"
+          color="primary.main"
+          sx={{
+            height: 15,
+            margin: 1,
+            padding: 0,
+            color: 'white',
+            fontSize: { xs: '0.6rem', sm: '0.8rem', md: '0.9rem' },
+          }}
+          onClick={handleClickImpressum}
         >
           Impressum
         </Button>
